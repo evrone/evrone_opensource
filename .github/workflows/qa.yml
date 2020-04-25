@@ -17,6 +17,8 @@ jobs:
         image: postgres:12.2
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
 
     steps:
     - uses: actions/checkout@v2
@@ -24,3 +26,5 @@ jobs:
       run: docker build . --file Dockerfile --tag evrone_opensource:$GITHUB_SHA
     - name: Run tests
       run: docker run evrone_opensource:$GITHUB_SHA rails db:setup && rails test
+      env:
+        RAILS_DB_HOST: 172.17.0.1
