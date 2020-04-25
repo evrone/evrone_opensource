@@ -40,6 +40,6 @@ jobs:
           evrone_opensource:$GITHUB_SHA \
           sh -c "rails db:setup && rails test"
     - name: Report coverage to CodeClimate
-      run: ./cc-test-reporter after-build
+      run: ./cc-test-reporter --prefix /srv/app after-build
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
