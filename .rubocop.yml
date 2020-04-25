@@ -1,0 +1,18 @@
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - db/schema.rb
+    - node_modules/**/*
+    - bin/bundle
+
+# === OVERRIDE ===
+#
+# - https://rubocop.readthedocs.io/en/latest/cops_style/#stylemodulefunction
+#
+# Why? `extend self` and `module_function` are not the same
+#      More info: https://github.com/rubocop-hq/ruby-style-guide/issues/556
+#
+Style/ModuleFunction:
+  Enabled: false
