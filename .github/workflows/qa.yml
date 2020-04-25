@@ -25,4 +25,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag evrone_opensource:$GITHUB_SHA
     - name: Run tests
-      run: docker run -e RAILS_DB_HOST=172.17.0.1 evrone_opensource:$GITHUB_SHA rails db:setup && rails test
+      run: docker run -e RAILS_DB_HOST=172.17.0.1 evrone_opensource:$GITHUB_SHA sh -c "rails db:setup && rails test"
