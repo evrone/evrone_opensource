@@ -4,7 +4,7 @@ WORKDIR /srv/app
 
 # install dependencies for
 # nokogiri, pg, pzinfo-data, webpack
-RUN apk add --no-cache \
+RUN apk add --update --no-cache \
         build-base \
         postgresql-dev \
         tzdata \
