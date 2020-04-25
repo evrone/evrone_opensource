@@ -11,7 +11,9 @@ RUN apk add --no-cache \
         nodejs yarn
 
 COPY Gemfile* ./
-
 RUN bundle install
+
+COPY package.json yarn.lock ./
+RUN yarn install
 
 COPY . .
