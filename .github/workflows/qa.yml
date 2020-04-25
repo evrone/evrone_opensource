@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:12.2
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag evrone_opensource:$GITHUB_SHA
+    - name: Run tests
+      run: docker run -e RAILS_DB_HOST=172.17.0.1 evrone_opensource:$GITHUB_SHA sh -c "rails db:setup && rails test"
