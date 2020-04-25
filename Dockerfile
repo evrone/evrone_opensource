@@ -10,4 +10,8 @@ RUN apk add --no-cache \
         tzdata \
         nodejs yarn
 
+COPY Gemfile* ./
+
 RUN bundle install
+
+COPY . .
