@@ -36,7 +36,7 @@ jobs:
       run: |
         docker run \
           -e RAILS_DB_HOST=172.17.0.1 \
-          -v ${PWD}:/srv/app \
+          -v ${PWD}/coverage:/srv/app/coverage \
           evrone_opensource:$GITHUB_SHA \
           sh -c "rails db:setup && rails test"
     - name: Report coverage to CodeClimate
