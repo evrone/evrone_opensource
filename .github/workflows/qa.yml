@@ -12,7 +12,15 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      db:
+        image: postgres:12.2
+        env:
+        - POSTGRES_HOST_AUTH_METHOD=trust
+
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag evrone_opensource:$GITHUB_SHA
+    - name: Run tests
+      run: docker run evrone_opensource:$GITHUB_SHA rails db:setup && rails test
