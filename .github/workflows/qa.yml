@@ -16,7 +16,7 @@ jobs:
       db:
         image: postgres:12.2
         env:
-        - POSTGRES_HOST_AUTH_METHOD=trust
+          POSTGRES_HOST_AUTH_METHOD: trust
 
     steps:
     - uses: actions/checkout@v2
