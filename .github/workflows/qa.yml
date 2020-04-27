@@ -32,6 +32,8 @@ jobs:
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag evrone_opensource:$GITHUB_SHA
+    - name: Run linters
+      run: docker run evrone_opensource:$GITHUB_SHA rubocop --parallel
     - name: Run tests
       run: |
         docker run \
