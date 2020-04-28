@@ -29,7 +29,10 @@ jobs:
         ./cc-test-reporter before-build
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-
+    - name: Warm up cache before building the image
+      run: |
+        docker pull \
+          docker.pkg.github.com/evrone/evrone_opensource/production:latest
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag evrone_opensource:$GITHUB_SHA
     - name: Run linters
