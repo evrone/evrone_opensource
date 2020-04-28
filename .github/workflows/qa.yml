@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  build_and_publish:
 
     runs-on: ubuntu-latest
 
@@ -29,7 +29,6 @@ jobs:
         ./cc-test-reporter before-build
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag evrone_opensource:$GITHUB_SHA
     - name: Run linters
@@ -45,3 +44,16 @@ jobs:
       run: ./cc-test-reporter --prefix /srv/app after-build
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+    - name: Login to the github docker registry
+      if: github.ref == 'master'
+      run: |
+        echo ${{ secrets.GITHUB_TOKEN }} | \
+          docker login docker.pkg.github.com \
+            -u ${{ github.repository_owner }} --password-stdin
+    - name: Publish image to the registry
+      if: github.ref == 'master'
+      run: |
+        docker tag evrone_opensource:$GITHUB_SHA docker.pkg.github.com/evrone/evrone_opensource/production:$GITHUB_SHA
+        docker tag evrone_opensource:$GITHUB_SHA docker.pkg.github.com/evrone/evrone_opensource/production:latest
+        docker push docker.pkg.github.com/evrone/evrone_opensource/production:$GITHUB_SHA
+        docker push docker.pkg.github.com/evrone/evrone_opensource/production:latest
