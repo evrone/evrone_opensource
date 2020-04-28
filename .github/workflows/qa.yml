@@ -31,7 +31,9 @@ jobs:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
     - name: Login to the github docker registry
       run: |
-        docker login docker.pkg.github.com -u ${{ github.repository_owner }} -p ${{ secrets.GITHUB_TOKEN }}
+        echo ${{ secrets.GITHUB_TOKEN }} | \
+          docker login docker.pkg.github.com \
+            -u ${{ github.repository_owner }} --password-stdin
     - name: Warm up cache before building the image
       run: |
         docker pull \
