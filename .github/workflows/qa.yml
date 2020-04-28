@@ -29,6 +29,10 @@ jobs:
         ./cc-test-reporter before-build
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+    - name: Login to the github docker registry
+      run: |
+        docker login docker.pkg.github.com \
+          -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
     - name: Warm up cache before building the image
       run: |
         docker pull \
@@ -50,8 +54,6 @@ jobs:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
     - name: Publish image to the registry
       run: |
-        docker login docker.pkg.github.com \
-          -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
         docker tag evrone_opensource:$GITHUB_SHA docker.pkg.github.com/evrone/evrone_opensource/production:$GITHUB_SHA
         docker tag evrone_opensource:$GITHUB_SHA docker.pkg.github.com/evrone/evrone_opensource/production:latest
         docker push docker.pkg.github.com/evrone/evrone_opensource/production:$GITHUB_SHA
