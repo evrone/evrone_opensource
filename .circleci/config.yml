@@ -7,7 +7,7 @@ workflows:
           context: evrone-docker-hub
 
 jobs:
-  build_and_publish:
+  build:
     machine: true
     steps:
       - checkout
