@@ -1,0 +1,25 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
+          chmod +x ./cc-test-reporter && \
+          ./cc-test-reporter before-builb
+        env:
+            CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - run: docker build . --file Dockerfile --tag evrone_opensource:$CIRCLE_SHA1
+      - run: docker run evrone_opensource:$CIRCLE_SHA1 rubocop --parallelb
+      # - run: |
+      #     docker run \
+      #     -e RAILS_DB_HOST=172.17.0.1 \
+      #     -v ${PWD}/coverage:/srv/app/coverage \
+      #     evrone_opensource:$CIRCLE_SHA1 \
+      #     sh -c "rails db:setup && rails test"
+      - run: ./cc-test-reporter --prefix /srv/app after-build
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
+
