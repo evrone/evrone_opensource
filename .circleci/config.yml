@@ -1,9 +1,17 @@
 version: 2
+
+workflows:
+   docker_login:
+     jobs:
+       - build:
+           context: evrone-docker-hub
+
 jobs:
   build:
     machine: true
     steps:
       - checkout
+      - run: echo $DOCKER_LOGIN
       - run: |
           docker run \
           -e POSTGRES_HOST_AUTH_METHOD=trust -d -p 5432:5432 postgres:12.2
