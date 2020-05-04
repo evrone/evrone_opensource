@@ -30,6 +30,12 @@ jobs:
           evrone_opensource:$CIRCLE_SHA1 \
           sh -c "rails db:setup && rails test"
       - run: ./cc-test-reporter --prefix /srv/app after-build
+
+      # Deploy only from master branch
+      - run: |
+          if [ "$CIRCLE_BRANCH" != "master" ]; then
+            circleci-agent step halt
+          fi
       - run: |
           docker tag evrone_opensource:$CIRCLE_SHA1 evrone/evrone_opensource:$CIRCLE_SHA1
           docker tag evrone_opensource:$CIRCLE_SHA1 evrone/evrone_opensource:latest
