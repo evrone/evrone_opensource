@@ -1,13 +1,13 @@
 version: 2.1
 
 workflows:
-   docker_login:
-     jobs:
-       - build:
-           context: evrone-docker-hub
+  build_and_publish:
+    jobs:
+      - build:
+          context: evrone-docker-hub
 
 jobs:
-  build:
+  build_and_publish:
     machine: true
     steps:
       - checkout
@@ -30,5 +30,9 @@ jobs:
           evrone_opensource:$CIRCLE_SHA1 \
           sh -c "rails db:setup && rails test"
       - run: ./cc-test-reporter --prefix /srv/app after-build
-
+      - run: |
+          docker tag evrone_opensource:$CIRCLE_SHA1 evrone/evrone_opensource:$CIRCLE_SHA1
+          docker tag evrone_opensource:$CIRCLE_SHA1 evrone/evrone_opensource:latest
+          docker push evrone/evrone_opensource:$CIRCLE_SHA1
+          docker push evrone/evrone_opensource:latest
 
