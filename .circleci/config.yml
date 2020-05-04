@@ -1,0 +1,53 @@
+version: 2.1
+
+workflows:
+  build_and_publish:
+    jobs:
+      - build:
+          context: evrone-docker-hub
+
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+
+      # Run database, should be the first step to have enough time to
+      # start
+      - run: |
+          docker run \
+          -e POSTGRES_HOST_AUTH_METHOD=trust -d -p 5432:5432 postgres:12.2
+
+      - run: |
+          echo $DOCKER_PASSWORD | \
+          docker login -u $DOCKER_LOGIN --password-stdin
+
+      # Boost caching
+      - run: docker pull evrone/evrone_opensource:latest
+
+      - run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
+          chmod +x ./cc-test-reporter && \
+          ./cc-test-reporter before-build
+
+      - run: docker build . --file Dockerfile --tag evrone_opensource:$CIRCLE_SHA1
+      - run: docker run evrone_opensource:$CIRCLE_SHA1 rubocop --parallel
+      - run: |
+          docker run \
+          -e RAILS_DB_HOST=172.17.0.1 \
+          -v ${PWD}/coverage:/srv/app/coverage \
+          evrone_opensource:$CIRCLE_SHA1 \
+          sh -c "rails db:setup && rails test"
+      - run: ./cc-test-reporter --prefix /srv/app after-build
+
+      # Deploy only from master branch
+      - run: |
+          if [ "$CIRCLE_BRANCH" != "master" ]; then
+            circleci-agent step halt
+          fi
+      - run: |
+          docker tag evrone_opensource:$CIRCLE_SHA1 evrone/evrone_opensource:$CIRCLE_SHA1
+          docker tag evrone_opensource:$CIRCLE_SHA1 evrone/evrone_opensource:latest
+          docker push evrone/evrone_opensource:$CIRCLE_SHA1
+          docker push evrone/evrone_opensource:latest
+
