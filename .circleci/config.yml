@@ -11,10 +11,12 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: echo $DOCKER_LOGIN
       - run: |
           docker run \
           -e POSTGRES_HOST_AUTH_METHOD=trust -d -p 5432:5432 postgres:12.2
+      - run: |
+          echo $DOCKER_PASSWORD | \
+          docker login -u $DOCKER_LOGIN --password-stdin
       - run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
           chmod +x ./cc-test-reporter && \
