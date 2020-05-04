@@ -9,7 +9,7 @@ jobs:
           chmod +x ./cc-test-reporter && \
           ./cc-test-reporter before-build
       - run: docker build . --file Dockerfile --tag evrone_opensource:$CIRCLE_SHA1
-      - run: docker run evrone_opensource:$CIRCLE_SHA1 rubocop --parallelb
+      - run: docker run evrone_opensource:$CIRCLE_SHA1 rubocop --parallel
       # - run: |
       #     docker run \
       #     -e RAILS_DB_HOST=172.17.0.1 \
