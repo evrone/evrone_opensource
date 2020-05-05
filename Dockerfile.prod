@@ -2,6 +2,10 @@ FROM ruby:2.7.1-alpine
 
 WORKDIR /srv/app
 
+# setup env
+ENV RAILS_ENV=production
+ENV NODE_ENV=production
+
 # install dependencies for
 # nokogiri, pg, pzinfo-data, webpack
 RUN apk add --update --no-cache \
@@ -19,4 +23,4 @@ RUN yarn install
 COPY . .
 
 # precompile assets
-RUN RAILS_ENV=production SECRET_KEY_BASE=1 bundle exec rails assets:precompile
+RUN SECRET_KEY_BASE=1 bundle exec rails assets:precompile
