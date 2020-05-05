@@ -10,10 +10,10 @@ RUN apk add --update --no-cache \
         tzdata \
         nodejs yarn
 
-COPY Gemfile Gemfile.lock .
+COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-COPY package.json yarn.lock .
+COPY package.json yarn.lock ./
 RUN yarn install
 
 COPY . .
