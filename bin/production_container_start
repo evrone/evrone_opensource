@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+set -e
+
+echo "Starting Evrone Opensource"
+
+ln -s /run/secrets/app_master_key config/master.key
+
+exec "$@"
