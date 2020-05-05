@@ -23,7 +23,7 @@ jobs:
           echo $DOCKER_PASSWORD | \
           docker login -u $DOCKER_LOGIN --password-stdin
 
-      - run: docker build . --file Dockerfile --tag evrone_opensource:$CIRCLE_SHA1
+      - run: docker build . --file Dockerfile.prod --tag evrone_opensource:$CIRCLE_SHA1
 
       - run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
