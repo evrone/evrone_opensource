@@ -1,8 +1,10 @@
 #!/usr/bin/env sh
 set -e
 
-echo "Starting Evrone Opensource"
+printf "\nStarting Evrone Opensource:"
 
-ln -s /run/secrets/app_master_key config/master.key
+printf "\n\nLinking master.key\n"
+#ln -s /run/secrets/app_master_key config/master.key
 
-exec "$@"
+printf "\n\nRunning migrations\n" && rails db:migrate && \
+  printf "\n\nStarting rails server\n" && rails s -b 0.0.0.0
