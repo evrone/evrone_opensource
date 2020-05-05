@@ -18,4 +18,5 @@ RUN yarn install
 
 COPY . .
 
-RUN rails webpacker:compile
+RUN rails webpacker:compile && \
+        RAILS_ENV=production rails assets:precompile
