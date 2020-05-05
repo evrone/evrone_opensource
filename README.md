@@ -19,6 +19,10 @@ we propose changes to the original project.
 Our goal is to make README of opensource projects as great as they can
 be.
 
+## Documentation
+
+- [DevOps](docs/dev_ops.md)
+
 ## Resources
 
 - [Production Docker Image](https://hub.docker.com/repository/docker/evrone/evrone_opensource)
