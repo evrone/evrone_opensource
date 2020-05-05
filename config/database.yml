@@ -84,5 +84,3 @@ test:
 production:
   <<: *default
   database: evrone_opensource_production
-  username: evrone_opensource
-  password: <%= ENV['EVRONE_OPENSOURCE_DATABASE_PASSWORD'] %>
