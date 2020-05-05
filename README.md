@@ -4,7 +4,23 @@
 
 # EvroneOpensource
 
-Opensource paw devotee on the crusade to enlighten awesome projects.
+Improve READMEs of opensource projects.
+
+This project scans GitHub and other sources for projects where
+README.md file can be improved.
+
+On the next step, we fork and improve the readme (add syntax highlighting,
+fix formating and so on) in our forked repository.
+
+Then we create a PR within cloned repository and after PR got approved
+we propose changes to the original project.
+
+Our goal is to make README of opensource projects as great as they can
+be.
+
+## Resources
+
+- [Production Docker Image](https://hub.docker.com/repository/docker/evrone/evrone_opensource)
 
 ## Setup
 
