@@ -17,3 +17,5 @@ COPY package.json yarn.lock ./
 RUN yarn install
 
 COPY . .
+
+RUN rails webpacker:compile
