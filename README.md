@@ -3,7 +3,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3c2ddedd6fa03ab8eea3/test_coverage)](https://codeclimate.com/github/evrone/evrone_opensource/test_coverage)
 
 
-# EvroneOpensource
+# Evrone Opensource
 
 Improve READMEs of opensource projects.
 
