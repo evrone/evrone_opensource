@@ -22,9 +22,6 @@ jobs:
           echo $DOCKER_PASSWORD | \
           docker login -u $DOCKER_LOGIN --password-stdin
 
-      # Boost caching
-      - run: docker pull evrone/evrone_opensource:latest
-
       - run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
           chmod +x ./cc-test-reporter && \
