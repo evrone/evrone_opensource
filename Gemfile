@@ -32,6 +32,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 
+# monitoring
+gem 'appsignal'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a
   # debugger console
