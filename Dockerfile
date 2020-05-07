@@ -11,7 +11,7 @@ RUN apk add --update --no-cache \
         nodejs yarn
 
 COPY Gemfile Gemfile.lock ./
-RUN bundle install
+RUN bundle install --jobs 4
 
 COPY package.json yarn.lock ./
 RUN yarn install
