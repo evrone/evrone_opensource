@@ -3,6 +3,9 @@ set -e
 
 printf "\nStarting Evrone Opensource:"
 
+export APP_REVISION=$(cat APP_REVISION)
+printf "\n\nAPP_REVISION: $APP_REVISION"
+
 printf "\n\nLinking master.key\n"
 ln -s /run/secrets/app_master_key config/master.key
 

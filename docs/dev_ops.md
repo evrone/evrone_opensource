@@ -15,3 +15,7 @@ Cronjob
 ```sh
 $ docker service update --image evrone/evrone_opensource:latest production_app
 ```
+
+## ENV
+
+`APP_REVISION` used by AppSignal to detect running app version
