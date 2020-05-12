@@ -18,7 +18,9 @@ class CreateProjectImprovements < ActiveRecord::Migration[6.0]
       to the original project)
       COMMENT
 
-      t.string :status, comment: 'stage of the improvement till it get merged'
+      t.string :status,
+               default: 'awaiting_review',
+               comment: 'stage of the improvement till it get merged'
 
       t.timestamps
     end

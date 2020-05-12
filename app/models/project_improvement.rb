@@ -8,7 +8,7 @@
 #       rejected -- by origin
 #       awaiting author response -- origin requested changes/response
 class ProjectImprovement < ApplicationRecord
-  STATUSES = %i[
+  STATUSES = %w[
     awaiting_review
     reviewed
     published

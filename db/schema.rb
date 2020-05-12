@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_170534) do
     t.citext "internal_pull_request_url", comment: "References internal PR inside the forked project"
     t.citext "external_pull_request_url", comment: "References PR to the original project"
     t.integer "github_author_id", comment: "Who done the review (and responsible to get PR merged to the original project)"
-    t.string "status", comment: "stage of the improvement till it get merged"
+    t.string "status", default: "awaiting_review", comment: "stage of the improvement till it get merged"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["external_pull_request_url"], name: "index_project_improvements_on_external_pull_request_url", unique: true
