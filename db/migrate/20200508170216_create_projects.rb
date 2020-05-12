@@ -2,9 +2,11 @@
 
 class CreateProjects < ActiveRecord::Migration[6.0]
   def change
+    enable_extension('citext')
+
     create_table :projects do |t|
-      t.string :repository_url, comment: 'Original repository url'
-      t.string :internal_repository_url, comment: 'Forked repository url'
+      t.citext :repository_url, comment: 'Original repository url'
+      t.citext :internal_repository_url, comment: 'Forked repository url'
 
       t.datetime :handled_at, comment: <<-COMMENT.squish
       When original repository was scaned for improvement opportunities

@@ -18,7 +18,7 @@ Style/ModuleFunction:
   Enabled: false
 
 #
-# Exclude migrations directory from certain linters
+# Exclude migrations and tests directory from certain linters
 #
 Metrics/MethodLength:
   Exclude:
@@ -26,3 +26,4 @@ Metrics/MethodLength:
 Style/Documentation:
   Exclude:
     - db/migrate/*.rb
+    - test/**/*

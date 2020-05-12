@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_05_08_170534) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "citext"
   enable_extension "plpgsql"
 
   create_table "project_improvements", force: :cascade do |t|
@@ -27,8 +28,8 @@ ActiveRecord::Schema.define(version: 2020_05_08_170534) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "repository_url", comment: "Original repository url"
-    t.string "internal_repository_url", comment: "Forked repository url"
+    t.citext "repository_url", comment: "Original repository url"
+    t.citext "internal_repository_url", comment: "Forked repository url"
     t.datetime "handled_at", comment: "When original repository was scaned for improvement opportunities"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
