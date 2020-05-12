@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_170534) do
     t.index ["external_pull_request_url"], name: "index_project_improvements_on_external_pull_request_url", unique: true
     t.index ["internal_pull_request_url"], name: "index_project_improvements_on_internal_pull_request_url", unique: true
     t.index ["project_id"], name: "index_project_improvements_on_project_id"
+    t.index ["status"], name: "index_project_improvements_on_status"
   end
 
   create_table "projects", force: :cascade do |t|
