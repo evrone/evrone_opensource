@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2020_05_08_170534) do
 
   create_table "project_improvements", force: :cascade do |t|
     t.bigint "project_id", null: false
-    t.string "internal_pull_request_url", comment: "References internal PR inside the forked project"
-    t.string "external_pull_request_url", comment: "References PR to the original project"
+    t.citext "internal_pull_request_url", comment: "References internal PR inside the forked project"
+    t.citext "external_pull_request_url", comment: "References PR to the original project"
     t.integer "github_author_id", comment: "Who done the review (and responsible to get PR merged to the original project)"
     t.string "status", comment: "stage of the improvement till it get merged"
     t.datetime "created_at", precision: 6, null: false

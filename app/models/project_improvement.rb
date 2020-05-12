@@ -4,6 +4,6 @@
 class ProjectImprovement < ApplicationRecord
   belongs_to :project
 
-  validates :repository_url, uniqueness: true
-  validates :internal_repository_url, uniqueness: true
+  validates :internal_pull_request_url, uniqueness: true
+  validates :external_pull_request_url, uniqueness: true, allow_nil: true
 end

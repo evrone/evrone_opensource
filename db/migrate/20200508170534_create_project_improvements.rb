@@ -5,11 +5,11 @@ class CreateProjectImprovements < ActiveRecord::Migration[6.0]
     create_table :project_improvements do |t|
       t.references :project, null: false, foreign_key: true, index: true
 
-      t.string :internal_pull_request_url, comment: <<-COMMENT.squish
+      t.citext :internal_pull_request_url, comment: <<-COMMENT.squish
       References internal PR inside the forked project
       COMMENT
 
-      t.string :external_pull_request_url, comment: <<-COMMENT.squish
+      t.citext :external_pull_request_url, comment: <<-COMMENT.squish
       References PR to the original project
       COMMENT
 
