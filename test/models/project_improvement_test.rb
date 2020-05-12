@@ -29,7 +29,10 @@ class ProjectImprovementTest < ActiveSupport::TestCase
 
   test 'external_pull_request_url can be nil' do
     assert(
-      ProjectImprovement.create!(internal_pull_request_url: 'url'),
+      ProjectImprovement.create!(
+        project: projects(:one),
+        internal_pull_request_url: 'url'
+      ),
       'created without external_pull_request_url field'
     )
   end

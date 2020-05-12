@@ -22,5 +22,8 @@ class CreateProjectImprovements < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    add_index(:project_improvements, :internal_pull_request_url, unique: true)
+    add_index(:project_improvements, :external_pull_request_url, unique: true)
   end
 end

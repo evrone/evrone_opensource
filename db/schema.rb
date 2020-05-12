@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 2020_05_08_170534) do
     t.string "status", comment: "stage of the improvement till it get merged"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["external_pull_request_url"], name: "index_project_improvements_on_external_pull_request_url", unique: true
+    t.index ["internal_pull_request_url"], name: "index_project_improvements_on_internal_pull_request_url", unique: true
     t.index ["project_id"], name: "index_project_improvements_on_project_id"
   end
 
