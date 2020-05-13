@@ -16,3 +16,14 @@ AllCops:
 #
 Style/ModuleFunction:
   Enabled: false
+
+#
+# Exclude migrations and tests directory from certain linters
+#
+Metrics/MethodLength:
+  Exclude:
+    - db/migrate/*.rb
+Style/Documentation:
+  Exclude:
+    - db/migrate/*.rb
+    - test/**/*
