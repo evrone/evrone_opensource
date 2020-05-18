@@ -6,4 +6,6 @@ class Project < ApplicationRecord
   validates :internal_repository_url, uniqueness: true, allow_nil: true
 
   has_many :project_impprovements, dependent: :nullify
+
+  scope :unhandled, -> { where(handled_at: nil) }
 end
