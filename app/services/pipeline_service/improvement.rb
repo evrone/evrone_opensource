@@ -7,7 +7,8 @@ module PipelineService
     extend self
 
     PROCESSORS = [
-      SampleImprovement
+      SampleImprovement,
+      CurrentTimeImprovement
     ].freeze
 
     def call(directory)

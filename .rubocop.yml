@@ -6,6 +6,7 @@ AllCops:
     - db/schema.rb
     - node_modules/**/*
     - bin/bundle
+    - tmp/**/*
 
 # === OVERRIDE ===
 #
@@ -17,6 +18,8 @@ AllCops:
 Style/ModuleFunction:
   Enabled: false
 
+Metrics/LineLength:
+  Max: 120
 #
 # Exclude migrations and tests directory from certain linters
 #

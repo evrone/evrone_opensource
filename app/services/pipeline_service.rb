@@ -28,6 +28,6 @@ module PipelineService
     Improvement.call(directory)
 
     # is anything to commit
-    Repository.publish_changes(directory)
+    Repository.publish_changes(project)
   end
 end

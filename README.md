@@ -29,6 +29,9 @@ be.
 
 ## Setup
 
+* `GITHUB_ACCESS_TOKEN` - token for access github api.
+* `GITHUB_ORGANIZATION_NAME` - fork target organization.
+
 ```
 $ docker-compoer up
 $ docker-compose exec app sh
