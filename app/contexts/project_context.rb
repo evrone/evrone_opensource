@@ -5,6 +5,7 @@ module ProjectContext
   extend self
 
   REPOS_PATH = 'tmp/repos'
+  CLONE_DEPTH = 3
 
   def next_unhandled_project
     Project.unhandled.first
@@ -18,16 +19,21 @@ module ProjectContext
     fork(repository_url)
     project = Project.find_by(repository_url: repository_url)
     work_dir = directory(project)
-    return work_dir.to_s if work_dir.exist? && work_dir.directory? && !work_dir.empty?
+    if work_dir.exist? && work_dir.directory? && !work_dir.empty?
+      return work_dir.to_s
+    end
 
     clone(project)
   end
 
   def clone(project)
-    repository = Octokit::Repository.from_url(project.internal_repository_url)
+    repo = Octokit::Repository.from_url(project.internal_repository_url)
     client = Octokit::Client.new
-    repository = client.repository repository
-    git = Git.clone(repository.ssh_url, repository.name, path: directory_for_clone)
+    repo = client.repository repo
+    git = Git.clone(repo.ssh_url,
+                    repo.name,
+                    path: directory_for_clone,
+                    depth: CLONE_DEPTH)
     git.dir.to_s
   end
 
@@ -49,9 +55,10 @@ module ProjectContext
   end
 
   def fork(repository_url)
-    repository = Octokit::Repository.from_url(repository_url)
+    repo = Octokit::Repository.from_url(repository_url)
     client = Octokit::Client.new
-    forked_repository = client.fork(repository, organization: client.current_organization.login)
+    org_name = client.current_organization.login
+    forked_repository = client.fork(repo, organization: org_name)
     save_fork(repository_url, forked_repository.html_url)
     forked_repository
   end
