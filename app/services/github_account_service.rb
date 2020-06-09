@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Manage `evrone_opensource` account actions
 module GithubAccountService
   extend self
 
