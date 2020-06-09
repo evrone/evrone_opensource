@@ -8,7 +8,8 @@ RUN apk add --update --no-cache \
         build-base \
         postgresql-dev \
         tzdata \
-        nodejs yarn
+        nodejs yarn \
+        git
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install --jobs 4
