@@ -33,6 +33,4 @@ yarn-debug.log*
 /persistent
 /coverage
 .env
-.generators
-.idea/
-.ruby-gemset
+/repositories
