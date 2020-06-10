@@ -4,6 +4,11 @@
 module RepositoryService
   extend self
 
+  GIT_AUTHOR = {
+    name: 'Evrone Opensource',
+    email: ENV.fetch('GIT_AUTHOR_EMAIL')
+  }.freeze
+
   # Converts repository name to https url
   # @param name [String] repository name at github
   #
@@ -15,18 +20,33 @@ module RepositoryService
   end
 
   # Repository location relative to current project
-  # @paams name [String] repository name at github
+  # @param name [String] repository name at github
   def locate(name)
     "repositories/#{name}"
   end
 
   # Clones repository locally
-  # @paams name [String] repository name at github
+  # @param name [String] repository name at github
   def clone(name)
     path = locate(name)
 
     return true if Dir.exist?(path)
 
     Git.clone(name_to_url(name), path, depth: 1) && true
+  end
+
+  # Creates a commit with all current uncommited changes
+  # @param name [String] repository name at github
+  # @param message [String] git commit message
+  def commit(name, message)
+    path = locate(name)
+
+    git = Git.open(path)
+
+    git.config('user.name', GIT_AUTHOR[:name])
+    git.config('user.email', GIT_AUTHOR[:email])
+
+    git.add(all: true)
+    git.commit(message)
   end
 end

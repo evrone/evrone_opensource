@@ -29,8 +29,9 @@ be.
 
 ## Setup
 
-* `GITHUB_ACCESS_TOKEN` - token for access github api.
-* `GITHUB_ORGANIZATION_NAME` - fork target organization.
+* `GITHUB_ACCESS_TOKEN` - token for access github api
+* `GITHUB_ORGANIZATION_NAME` - fork target organization
+* `GIT_AUTHOR_EMAIL` - email for creating commits
 
 ```
 $ docker-compoer up
