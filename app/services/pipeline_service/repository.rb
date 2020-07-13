@@ -3,25 +3,33 @@
 module PipelineService
   # Pipeline repository actions
   module Repository
-    extend self
+    module_function
 
     # Check if repository files exist and clone if necessary
-    def ensure_cloned(repository_url)
-      ProjectContext.clone_repo(repository_url)
+    #
+    # @param repository [String]: repository name at github
+    def ensure_cloned(repository)
+      RepositoryService.clone(repository)
     end
 
     # Clones repository to our organisation and creates a new PR with
     # proposed changes
-    def publish_changes(project)
-      directory = ProjectContext.directory(project)
+    #
+    # @param directory [String]: path to the repository relative to project root
+    # @param repository [String]: repository name at GitHub
+    def publish_changes(directory, repository)
       return unless anything_to_commit?(directory)
 
-      msg = 'Open src improvement'
-      git = Git.open(directory)
-      git.add(all: true)
-      git.commit(msg)
-      git.push
-      create_pull_request(project, git.branch.to_s)
+      # commpit current changes
+      RepositoryService.commit(repository, 'improvements')
+
+      # publish pull reuest to our repo
+      GithubAccountService.create_pull_request \
+        repository: repository,
+        target: 'master',
+        from: 'master',
+        title: 'title',
+        description: 'description'
     end
 
     # locates directory where repository should be cloned

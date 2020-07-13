@@ -2,12 +2,12 @@
 
 # Manage repositories
 module RepositoryService
-  extend self
-
   GIT_AUTHOR = {
     name: 'Evrone Opensource',
     email: ENV.fetch('GIT_AUTHOR_EMAIL')
   }.freeze
+
+  module_function
 
   # Converts repository name to https url
   # @param name [String] repository name at github

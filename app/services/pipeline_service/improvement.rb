@@ -4,7 +4,7 @@ module PipelineService
   # Scan directory for improvement opportunities and capitalise on
   # them
   module Improvement
-    extend self
+    module_function
 
     PROCESSORS = [
       SampleImprovement,

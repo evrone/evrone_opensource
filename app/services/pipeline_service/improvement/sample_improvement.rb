@@ -4,7 +4,7 @@ module PipelineService
   module Improvement
     # Sample improvement handler
     module SampleImprovement
-      extend self
+      module_function
 
       def call(directory)
         "processing #{directory}"

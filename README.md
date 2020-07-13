@@ -14,10 +14,9 @@ On the next step, we fork and improve the readme (add syntax highlighting,
 fix formating and so on) in our forked repository.
 
 Then we create a PR within cloned repository and after PR got approved
-we propose changes to the original project.
+by our team we propose changes to the original project.
 
-Our goal is to make README of opensource projects as great as they can
-be.
+Our mission is to make opensource projects better.
 
 ## Documentation
 
@@ -29,8 +28,8 @@ be.
 
 ## Setup
 
-* `GITHUB_ACCESS_TOKEN` - token for access github api
-* `GITHUB_ORGANIZATION_NAME` - fork target organization
+* `GITHUB_ACCESS_TOKEN` - token to access GitHub API
+* `GITHUB_ORGANIZATION_NAME` - organization to fork to
 * `GIT_AUTHOR_EMAIL` - email for creating commits
 
 ```

@@ -4,7 +4,7 @@ module PipelineService
   module Improvement
     # Sample improvement handler
     module CurrentTimeImprovement
-      extend self
+      module_function
 
       def call(directory)
         readme_file(directory)
