@@ -12,7 +12,7 @@ module PipelineService
       RepositoryService.clone(repository)
     end
 
-    # Clones repository to our organisation and creates a new PR with
+    # Clones repository to our organization and creates a new PR with
     # proposed changes
     #
     # @param directory [String]: path to the repository relative to project root
