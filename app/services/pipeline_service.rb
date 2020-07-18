@@ -2,7 +2,7 @@
 
 # Handle queued projects from pipeline
 module PipelineService
-  extend self
+  module_function
 
   # process the queue
   def run
@@ -26,8 +26,6 @@ module PipelineService
 
     # improvements scan
     Improvement.call(directory)
-
-    # is anything to commit
-    Repository.publish_changes(project)
+    Repository.publish_changes(directory, project.repository_url)
   end
 end

@@ -2,13 +2,13 @@
 
 # Manage `evrone_opensource` account actions
 module GithubAccountService
-  extend self
-
   KIT = Octokit::Client.new
   FORK_ORGANISATION = 'fork-town'
 
+  module_function
+
   # Fork repository to internal organisation
-  # @param repository_name [String] repository name at github
+  # @param repository [String]: repository name at github
   #
   # @example
   #   fork_to_organisation('evrone/evrone_opensource')
@@ -35,5 +35,9 @@ module GithubAccountService
   def create_pull_request(repository:, target:, from:, title:, description:)
     KIT.create_pull_request(repository, target, from, title, description)
   end
+
+  # Publish pull request to the original repository
+  def propose_pull_request()
+
   end
 end
