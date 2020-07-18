@@ -29,7 +29,6 @@ Our mission is to make opensource projects better.
 ## Setup
 
 * `GITHUB_ACCESS_TOKEN` - token to access GitHub API
-* `GITHUB_ORGANIZATION_NAME` - organization to fork to
 * `GIT_AUTHOR_EMAIL` - email for creating commits
 
 ```
