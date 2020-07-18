@@ -49,4 +49,20 @@ module RepositoryService
     git.add(all: true)
     git.commit(message)
   end
+
+  # Check for uncommited changes
+  # @param name [String] repository name at github
+  def anything_to_commit?(name)
+    path = locate(name)
+
+    Git.open(path).status.changed.present?
+  end
+
+  def change_branch(name, branch)
+    raise :not_implemented
+  end
+
+  def push(name)
+    rails :not_implemented
+  end
 end

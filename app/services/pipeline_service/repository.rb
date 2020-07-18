@@ -17,39 +17,21 @@ module PipelineService
     #
     # @param directory [String]: path to the repository relative to project root
     # @param repository [String]: repository name at GitHub
-    def publish_changes(directory, repository)
-      return unless anything_to_commit?(directory)
+    def publish_changes(repository)
+      return unless RepositoryService.anything_to_commit?(repository)
 
-      # commpit current changes
+      forked_repository =
+        GithubAccountService.fork_to_account(repository)
+
+      RepositoryService.change_branch(repository, 'changes')
       RepositoryService.commit(repository, 'improvements')
+      RepositoryService.push(repository)
 
-      # publish pull reuest to our repo
+      # publish pull request to our repository
       GithubAccountService.create_pull_request \
-        repository: repository,
-        target: 'master',
-        from: 'master',
-        title: 'title',
-        description: 'description'
-    end
-
-    # locates directory where repository should be cloned
-    def directory(repository_url)
-      project = Project.find_by(repository_url: repository_url)
-      ProjectContext.directory(project)
-    end
-
-    # checks if we made local changes in your current branch
-    def anything_to_commit?(directory)
-      git = Git.open(directory)
-      git.status.changed.present?
-    end
-
-    def create_pull_request(project, current_branch)
-      msg = 'Open src improvement'
-      repository = Octokit::Repository.from_url(project.repository_url)
-      client = Octokit::Client.new
-      head = "#{client.current_organization.login}:#{current_branch}"
-      client.create_pull_request(repository, current_branch, head, msg, msg)
+        repository: forked_repository,
+        target: 'master', from: 'master',
+        title: 'title', description: 'description'
     end
   end
 end

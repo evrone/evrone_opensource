@@ -26,6 +26,6 @@ module PipelineService
 
     # improvements scan
     Improvement.call(directory)
-    Repository.publish_changes(directory, project.repository_url)
+    Repository.publish_changes(project.repository_url)
   end
 end
