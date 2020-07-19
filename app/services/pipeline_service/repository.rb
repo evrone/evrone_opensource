@@ -8,6 +8,8 @@ module PipelineService
     # Check if repository files exist and clone if necessary
     #
     # @param repository [String]: repository name at github
+    #
+    # @returns relative to project's root repository path
     def ensure_cloned(repository)
       RepositoryService.clone(repository)
     end

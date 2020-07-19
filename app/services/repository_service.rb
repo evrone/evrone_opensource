@@ -7,6 +7,9 @@ module RepositoryService
     email: ENV.fetch('GIT_AUTHOR_EMAIL')
   }.freeze
 
+  # internal repository's origin to push changes
+  REMOTE = 'evrone-opensource'
+
   module_function
 
   # Converts repository name to https url
@@ -25,6 +28,13 @@ module RepositoryService
     "repositories/#{name}"
   end
 
+  # Git repository object to interact with
+  def git(name)
+    path = locate(name)
+
+    Git.open(path)
+  end
+
   # Clones repository locally
   # @param name [String] repository name at github
   def clone(name)
@@ -32,16 +42,14 @@ module RepositoryService
 
     return true if Dir.exist?(path)
 
-    Git.clone(name_to_url(name), path, depth: 1) && true
+    Git.clone(name_to_url(name), path, depth: 1) && path
   end
 
   # Creates a commit with all current uncommited changes
   # @param name [String] repository name at github
   # @param message [String] git commit message
   def commit(name, message)
-    path = locate(name)
-
-    git = Git.open(path)
+    git = git(name)
 
     git.config('user.name', GIT_AUTHOR[:name])
     git.config('user.email', GIT_AUTHOR[:email])
@@ -53,16 +61,22 @@ module RepositoryService
   # Check for uncommited changes
   # @param name [String] repository name at github
   def anything_to_commit?(name)
-    path = locate(name)
-
-    Git.open(path).status.changed.present?
+    git(name).status.changed.present?
   end
 
   def change_branch(name, branch)
-    raise :not_implemented
+    git(name).checkout(branch)
   end
 
+  # Pushes changes to the internal repository
   def push(name)
-    rails :not_implemented
+    git = git(name)
+    branch = git.current_branch
+
+    git.config \
+      "remote.#{REMOTE}.push",
+      "refs/heads/#{branch}:refs/heads/#{branch}"
+
+    git.push(remote, branch)
   end
 end
