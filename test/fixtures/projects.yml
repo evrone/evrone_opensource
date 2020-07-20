@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  repository_url: "url-1"
-  internal_repository_url: "url-1"
+  repository_name: "evrone/evrone_opensource-1"
+  internal_repository_name: "fork-town/evrone_opensource-1"
   handled_at: 2020-05-12 15:46:39
 
 two:
-  repository_url: "url-2"
-  internal_repository_url: "url-2"
+  repository_name: "evrone/evrone_opensource-2"
+  internal_repository_name: "fork-town/evrone_opensource-2"
   handled_at: 2020-05-12 15:46:39

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_170534) do
+ActiveRecord::Schema.define(version: 2020_07_20_232726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -31,14 +31,14 @@ ActiveRecord::Schema.define(version: 2020_05_08_170534) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.citext "repository_url", comment: "Original repository url"
-    t.citext "internal_repository_url", comment: "Forked repository url"
+    t.citext "repository_name", comment: "Repository name at GitHub"
+    t.citext "internal_repository_name", comment: "Forked repository name at GitHub"
     t.datetime "handled_at", comment: "When original repository was scaned for improvement opportunities"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["handled_at"], name: "index_projects_on_handled_at", where: "(handled_at IS NULL)"
-    t.index ["internal_repository_url"], name: "index_projects_on_internal_repository_url", unique: true
-    t.index ["repository_url"], name: "index_projects_on_repository_url", unique: true
+    t.index ["internal_repository_name"], name: "index_projects_on_internal_repository_name", unique: true
+    t.index ["repository_name"], name: "index_projects_on_repository_name", unique: true
   end
 
   add_foreign_key "project_improvements", "projects"

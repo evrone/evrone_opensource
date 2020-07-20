@@ -22,10 +22,10 @@ module PipelineService
   def handle(project)
     # persist the repository
     directory = Repository
-                .ensure_cloned(project.repository_url)
+                .ensure_cloned(project.repository_name)
 
     # improvements scan
     Improvement.call(directory)
-    Repository.publish_changes(project.repository_url)
+    Repository.publish_changes(project.repository_name)
   end
 end
