@@ -6,7 +6,8 @@ class ProjectTest < ActiveSupport::TestCase
   test 'has case insensitive urls' do
     Project.create!(repository_name: 'url', internal_repository_name: 'url')
 
-    invalid = Project.new(repository_name: 'Url', internal_repository_name: 'Url')
+    invalid = Project.new \
+      repository_name: 'Url', internal_repository_name: 'Url'
 
     assert_not(invalid.valid?, 'Project is invalid')
 
@@ -20,9 +21,8 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test 'internal_repository_name can be nil' do
-    assert(
+    assert \
       Project.create!(repository_name: 'url'),
       'created without internal_repository_name field'
-    )
   end
 end
