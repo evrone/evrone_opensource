@@ -7,8 +7,7 @@ module PipelineService
     module_function
 
     PROCESSORS = [
-      SampleImprovement,
-      CurrentTimeImprovement
+      SampleImprovement
     ].freeze
 
     def call(directory)

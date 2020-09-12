@@ -37,10 +37,11 @@ module RepositoryService
 
   # Clones repository locally
   # @param name [String] repository name at github
+  # @returns directory path
   def clone(name)
     path = locate(name)
 
-    return true if Dir.exist?(path)
+    return path if Dir.exist?(path)
 
     Git.clone(name_to_url(name), path, depth: 1) && path
   end
@@ -65,11 +66,24 @@ module RepositoryService
   end
 
   def change_branch(name, branch)
-    git(name).checkout(branch)
+    git(name).branch(branch).checkout
+  end
+
+  def ensure_remote(name, internal_repository)
+    git = git(name)
+
+    return if git.remotes.find { |remote| remote.name == REMOTE }
+
+    token = ENV.fetch('GITHUB_ACCESS_TOKEN')
+    url = "https://#{token}:x-oauth-basic@github.com/#{internal_repository}.git"
+
+    git.add_remote(REMOTE, url)
   end
 
   # Pushes changes to the internal repository
-  def push(name)
+  def push(name, internal_repository)
+    ensure_remote(name, internal_repository)
+
     git = git(name)
     branch = git.current_branch
 
@@ -77,6 +91,6 @@ module RepositoryService
       "remote.#{REMOTE}.push",
       "refs/heads/#{branch}:refs/heads/#{branch}"
 
-    git.push(remote, branch)
+    git.push(REMOTE, branch)
   end
 end

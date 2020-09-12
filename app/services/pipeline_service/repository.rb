@@ -27,12 +27,12 @@ module PipelineService
 
       RepositoryService.change_branch(repository, 'changes')
       RepositoryService.commit(repository, 'improvements')
-      RepositoryService.push(repository)
+      RepositoryService.push(repository, forked_repository)
 
       # publish pull request to our repository
       GithubAccountService.create_pull_request \
         repository: forked_repository,
-        target: 'master', from: 'master',
+        target: 'master', from: 'changes',
         title: 'title', description: 'description'
     end
   end

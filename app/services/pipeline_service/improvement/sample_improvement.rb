@@ -7,7 +7,9 @@ module PipelineService
       module_function
 
       def call(directory)
-        "processing #{directory}"
+        File.open(directory + '/README.md', 'wb') do |file|
+          file.write(Time.now)
+        end
       end
     end
   end

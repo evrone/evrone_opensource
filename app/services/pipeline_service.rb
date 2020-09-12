@@ -19,13 +19,15 @@ module PipelineService
     end
   end
 
-  def handle(project)
+  # scan project for improvement opportunities, apply them, fork and
+  # create a PR for local review
+  def handle(repository_name)
     # persist the repository
     directory = Repository
-                .ensure_cloned(project.repository_name)
+                .ensure_cloned(repository_name)
 
     # improvements scan
     Improvement.call(directory)
-    Repository.publish_changes(project.repository_name)
+    Repository.publish_changes(repository_name)
   end
 end
