@@ -22,16 +22,16 @@ module PipelineService
     def publish_changes(repository)
       return unless RepositoryService.anything_to_commit?(repository)
 
-      forked_repository =
+      forked_repository_name =
         GithubAccountService.fork_to_account(repository)
 
       RepositoryService.change_branch(repository, 'changes')
       RepositoryService.commit(repository, 'improvements')
-      RepositoryService.push(repository, forked_repository)
+      RepositoryService.push(repository, forked_repository_name)
 
       # publish pull request to our repository
       GithubAccountService.create_pull_request \
-        repository: forked_repository,
+        repository: forked_repository_name,
         target: 'master', from: 'changes',
         title: 'title', description: 'description'
     end
