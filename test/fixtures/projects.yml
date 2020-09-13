@@ -12,3 +12,7 @@ two:
 
 without_internal_repository:
   repository_name: "evrone/evrone_opensource-3"
+
+unhandled:
+  repository_name: "evrone/evrone_opensource-4"
+  handled_at: nil

@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class ProjectImprovementContextTest < ActiveSupport::TestCase
+  self.use_transactional_tests = true
+
   test 'cretae_project_improvement!' do
     project = projects(:without_internal_repository)
 
