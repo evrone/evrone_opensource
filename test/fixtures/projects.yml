@@ -9,3 +9,6 @@ two:
   repository_name: "evrone/evrone_opensource-2"
   internal_repository_name: "fork-town/evrone_opensource-2"
   handled_at: 2020-05-12 15:46:39
+
+without_internal_repository:
+  repository_name: "evrone/evrone_opensource-3"
