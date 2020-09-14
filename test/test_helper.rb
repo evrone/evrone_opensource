@@ -5,6 +5,10 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'simplecov'
 SimpleCov.start('rails')
 
+# Detect coverage is using Spring
+# https://github.com/simplecov-ruby/simplecov#want-to-use-spring-with-simplecov
+Rails.application.eager_load!
+
 require_relative '../config/environment'
 require 'rails/test_help'
 
