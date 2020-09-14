@@ -10,7 +10,7 @@ printf "\n\nLinking master.key\n"
 ln -s /run/secrets/app_master_key config/master.key
 
 export GITHUB_ACCESS_TOKEN=`cat /run/secrets/evrone_opensource--github_access_token`
-export APPSIGNAL_PUSH_API_KEY= `cat /run/secrets/evrone_opensource--appsignal_push_api_key`
+export APPSIGNAL_PUSH_API_KEY=`cat /run/secrets/evrone_opensource--appsignal_push_api_key`
 
 printf "\n\nRunning migrations\n" && rails db:migrate && \
   printf "\n\nStarting rails server\n" && rails s -b 0.0.0.0
