@@ -36,6 +36,7 @@ jobs:
           docker run \
           -e RAILS_DB_HOST=172.17.0.1 \
           -e RAILS_ENV=test \
+          -e GIT_AUTHOR_EMAIL=1 \
           -v ${PWD}/coverage:/srv/app/coverage \
           evrone_opensource:$CIRCLE_SHA1 \
           sh -c "rails db:setup && rails test"
