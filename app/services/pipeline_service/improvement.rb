@@ -7,7 +7,8 @@ module PipelineService
     module_function
 
     PROCESSORS = [
-      SampleImprovement
+      # SampleImprovement
+      ReadmeGemImprovement
     ].freeze
 
     def call(directory)
