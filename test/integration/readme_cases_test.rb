@@ -2,7 +2,8 @@ require "test_helper"
 
 class ReadmeCasesTest < ActiveSupport::TestCase
   FILES = [
-    "test/fixtures/files/readmes/thoughtbot-paul-revere"
+    "test/fixtures/files/readmes/thoughtbot-paul-revere",
+    "test/fixtures/files/readmes/maetl-calyx"
   ].freeze
 
   test "converts readmes successfuly" do

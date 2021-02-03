@@ -3,7 +3,7 @@
 module PipelineService
   module Improvement
     # Highlight gem syntax in README.md
-    module ReadmeGemImprovement
+    module ReadmeGemImprovement1
       module_function
 
       PATTERN = /(?<line>\n\n\s\s\s\s(?<gem>gem\s["'].+["'])\n\n)/.freeze
