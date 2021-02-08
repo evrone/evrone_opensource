@@ -31,6 +31,8 @@ module PipelineService
     pull_request =
       Repository.publish_changes(project.repository_name)
 
+    return unless pull_request
+
     ProjectImprovementContext.create_project_improvement! \
       project, pull_request[:repo][:full_name], pull_request[:html_url]
   ensure
